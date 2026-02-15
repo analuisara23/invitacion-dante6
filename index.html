@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Invitación | Dante 6</title>
+
+  <!-- Vista previa (cuando publiques cambia SITE_URL por tu dominio real) -->
+  <meta property="og:title" content="🎉 Dante cumple 6" />
+  <meta property="og:description" content="Sábado 11 de abril · 1:30 PM · Residencial Miralago" />
+  <meta property="og:image" content="SITE_URL/hero.png" />
+  <meta property="og:url" content="SITE_URL/" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&family=Baloo+2:wght@700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --ink:#0b1220;
+      --muted:#334155;
+      --c1:#00C2FF;
+      --c2:#7C3AED;
+      --c3:#FF7A00;
+      --c4:#FFD166;
+      --c5:#22C55E;
+      --shadow: 0 18px 55px rgba(2,6,23,.18);
+      --r: 26px;
+    }
+    *{ box-sizing:border-box; }
+
+    /* Fondo más “vegetación” SOLO CSS */
+    body{
+      margin:0;
+      font-family: "Fredoka", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--ink);
+      min-height:100vh;
+      padding:18px;
+      background:
+        radial-gradient(900px 600px at 10% 10%, rgba(34,197,94,.22), transparent 55%),
+        radial-gradient(900px 600px at 92% 12%, rgba(253,224,71,.18), transparent 60%),
+        radial-gradient(900px 700px at 40% 100%, rgba(255,122,0,.14), transparent 60%),
+        repeating-radial-gradient(circle at 15% 30%,
+          rgba(34,197,94,.16) 0 10px,
+          transparent 10px 28px),
+        repeating-radial-gradient(circle at 85% 70%,
+          rgba(132,204,22,.14) 0 12px,
+          transparent 12px 32px),
+        linear-gradient(160deg, #f7fbff, #fff8ef 55%, #f6f3ff);
+    }
+
+    .wrap{
+      width:min(1100px, 100%);
+      margin:0 auto;
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap:18px;
+      align-items:stretch;
+    }
+    @media (max-width:980px){ .wrap{ grid-template-columns:1fr; } }
+
+    /* Tarjetas con toque jaspeado */
+    .card{
+      position:relative;
+      border-radius: var(--r);
+      overflow:hidden;
+      background:
+        radial-gradient(800px 500px at 10% 10%, rgba(34,197,94,.16), transparent 55%),
+        radial-gradient(800px 520px at 90% 20%, rgba(253,224,71,.14), transparent 60%),
+        radial-gradient(800px 560px at 50% 100%, rgba(255,122,0,.12), transparent 60%),
+        rgba(255,255,255,.93);
+      border: 2px solid rgba(255,255,255,.92);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    /* HERO */
+    .hero{
+      position:relative;
+      height: 320px;
+      overflow:hidden;
+      border-bottom: 2px solid rgba(0,0,0,.06);
+      background: #fff;
+    }
+    .hero img.heroImg{
+      width:100%;
+      height:100%;
+      display:block;
+      object-fit:cover;
+      object-position:center 25%;
+      transform: scale(1.01);
+      /* Más claridad */
+      filter: brightness(1.12) contrast(1.12) saturate(1.20);
+    }
+    /* Overlay suave (no tapa, solo “acabado”) */
+    .hero::after{
+      content:"";
+      position:absolute; inset:0;
+      pointer-events:none;
+      background:
+        radial-gradient(900px 420px at 15% 10%, rgba(0,194,255,.16), transparent 55%),
+        radial-gradient(900px 420px at 90% 90%, rgba(255,122,0,.12), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.78));
+      opacity: .95;
+      filter: contrast(1.08) saturate(1.08);
+    }
+
+    .content{
+      padding: 18px 22px 22px;
+      position:relative;
+    }
+
+    /* “Hojas” fuertes SOLO CSS */
+    .content::before,
+    .content::after{
+      content:"";
+      position:absolute;
+      width:260px;
+      height:260px;
+      opacity:.55;
+      pointer-events:none;
+      filter: saturate(1.55) contrast(1.12);
+      z-index:0;
+      background-repeat:no-repeat;
+      background-size:cover;
+    }
+    .content::before{
+      left:-70px; top:70px;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(34,197,94,.95), transparent 60%),
+        radial-gradient(circle at 70% 60%, rgba(132,204,22,.85), transparent 62%),
+        radial-gradient(circle at 55% 45%, rgba(253,224,71,.55), transparent 66%),
+        radial-gradient(circle at 40% 75%, rgba(16,185,129,.62), transparent 68%);
+      border-radius: 45% 55% 55% 45%;
+    }
+    .content::after{
+      right:-70px; bottom:-10px;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(34,197,94,.95), transparent 60%),
+        radial-gradient(circle at 70% 60%, rgba(132,204,22,.85), transparent 62%),
+        radial-gradient(circle at 55% 45%, rgba(253,224,71,.55), transparent 66%),
+        radial-gradient(circle at 40% 75%, rgba(16,185,129,.62), transparent 68%);
+      border-radius: 55% 45% 45% 55%;
+    }
+    .content > *{ position:relative; z-index:1; }
+
+    /* Etiqueta nombre (para que siempre se vea “Dante”) */
+    .nameTag{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      background:rgba(255,255,255,.92);
+      border:2px solid rgba(0,0,0,.06);
+      font-weight:900;
+      margin-bottom:10px;
+    }
+
+    /* Título centrado */
+    .title{
+      font-family: "Baloo 2", "Fredoka", system-ui, sans-serif;
+      font-weight: 800;
+      margin: 0;
+      font-size: clamp(30px, 4.6vw, 54px);
+      line-height: 1.05;
+      letter-spacing: .2px;
+      text-align:center;
+      background: linear-gradient(90deg, var(--c3), var(--c4), var(--c1), var(--c2));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color: transparent;
+      text-shadow:
+        -2px -2px 0 rgba(11,18,32,.10),
+         2px -2px 0 rgba(11,18,32,.10),
+        -2px  2px 0 rgba(11,18,32,.10),
+         2px  2px 0 rgba(11,18,32,.10);
+    }
+
+    .subtitle{
+      margin: 12px 0 0;
+      display:flex;
+      justify-content:center;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.92);
+      border: 2px solid rgba(0,0,0,.06);
+      font-weight: 700;
+    }
+    .chip .dot{
+      width:32px; height:32px;
+      border-radius: 14px;
+      display:grid; place-items:center;
+      color:#fff;
+      background: linear-gradient(135deg, var(--c2), var(--c1));
+    }
+
+    .quote{
+      margin-top: 14px;
+      padding: 12px 12px;
+      border-radius: 20px;
+      background: rgba(255,255,255,.92);
+      border: 2px solid rgba(0,0,0,.06);
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      font-weight:700;
+      line-height:1.25;
+    }
+    .quote .dot{
+      width:34px; height:34px;
+      border-radius: 14px;
+      display:grid; place-items:center;
+      color:#fff;
+      background: linear-gradient(135deg, var(--c3), var(--c4));
+      flex:0 0 auto;
+    }
+
+    .countLine{
+      margin-top:14px;
+      padding:14px;
+      border-radius: 22px;
+      background: rgba(255,255,255,.92);
+      border: 2px solid rgba(0,0,0,.06);
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+    .countLeft{ display:flex; align-items:center; gap:12px; }
+    .ico{
+      width:46px; height:46px;
+      border-radius: 18px;
+      display:grid; place-items:center;
+      border: 2px solid rgba(255,255,255,.85);
+      box-shadow: 0 14px 22px rgba(2,6,23,.10);
+      font-size:18px;
+      background: linear-gradient(135deg, var(--c2), #fff);
+    }
+    .countTxt{ font-weight:800; font-size:16px; }
+    .countMini{ font-weight:700; color:var(--muted); font-size:12px; }
+
+    /* Info + imagen crash2 a la derecha */
+    .infoRow{
+      margin-top: 16px;
+      display:grid;
+      grid-template-columns: 1fr 320px;
+      gap:12px;
+      align-items:stretch;
+    }
+    @media (max-width:820px){
+      .infoRow{ grid-template-columns:1fr; }
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+    }
+    @media (max-width:560px){ .grid{ grid-template-columns:1fr; } }
+
+    .pill{
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+      padding:14px;
+      border-radius: 22px;
+      background: rgba(255,255,255,.92);
+      border: 2px solid rgba(0,0,0,.06);
+    }
+    .pill h4{ margin:0; font-size:13px; font-weight:800; color:var(--muted); text-transform:uppercase; letter-spacing:.3px; }
+    .pill p{ margin:4px 0 0; font-weight:800; font-size:16px; }
+    .pill small{ display:block; margin-top:4px; color:var(--muted); font-weight:700; }
+
+.infoArtSide{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius: 22px;
+  overflow:hidden;
+  border: 2px solid rgba(0,0,0,.06);
+  box-shadow: 0 18px 35px rgba(2,6,23,.12);
+
+  /* fondo suave para que “rellene” cuando la imagen use contain */
+  background: linear-gradient(145deg,#f6f6f6,#ffffff);
+}
+
+.infoArtSide img{
+  width:100%;
+  height:100%;
+  display:block;
+
+  object-fit: contain;      /* no recorta */
+  object-position: center;
+
+  padding: 12px;
+  filter: contrast(1.15) saturate(1.20);
+}
+
+    .actions{ margin-top: 14px; display:flex; gap:10px; flex-wrap:wrap; justify-content:center; }
+    .btn{
+      border:none;
+      border-radius: 18px;
+      padding:12px 14px;
+      font-weight:800;
+      cursor:pointer;
+      text-decoration:none;
+      user-select:none;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      transition: transform .08s ease;
+      white-space:nowrap;
+    }
+    .btn:active{ transform: translateY(1px) scale(.99); }
+    .primary{
+      background: linear-gradient(135deg, var(--c3), var(--c4));
+      color:#1b140d;
+      box-shadow: 0 18px 35px rgba(255,122,0,.22);
+    }
+    .ghost{
+      background: rgba(255,255,255,.92);
+      border: 2px solid rgba(0,0,0,.06);
+      color: var(--ink);
+    }
+
+    /* RSVP */
+    .rsvp{
+      padding:22px;
+      background: rgba(255,255,255,.95);
+      position:relative;
+      overflow:hidden;
+    }
+    .rsvp h3{ margin:0 0 6px; font-size:22px; font-weight:800; }
+    .rsvp p{ margin:0 0 14px; color:var(--muted); font-weight:700; font-size:14px; line-height:1.4; }
+
+    /* hero.png de fondo (más claro) */
+    .rsvp::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background-image: url("./hero.png");
+      background-size: cover;
+      background-position: center;
+      opacity: .24;
+      filter: brightness(1.35) contrast(1.08) saturate(1.10);
+      transform: scale(1.06);
+      pointer-events:none;
+    }
+    .rsvp > *{ position:relative; z-index:1; }
+
+    label{ font-size:12px; color:var(--muted); font-weight:800; letter-spacing:.3px; text-transform:uppercase; }
+    input, textarea{
+      width:100%;
+      padding:12px 12px;
+      border-radius: 16px;
+      border: 2px solid rgba(2,6,23,.10);
+      background:#fff;
+      color: var(--ink);
+      outline:none;
+      font-weight:700;
+      font-family: inherit;
+    }
+    textarea{ min-height:92px; resize:vertical; }
+    .grid2{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+
+    .status{
+      margin-top:10px;
+      padding:10px 12px;
+      border-radius: 16px;
+      border: 2px solid rgba(2,6,23,.10);
+      background: rgba(255,255,255,.95);
+      font-weight:800;
+      display:none;
+    }
+    .status.ok{ display:block; border-color: rgba(34,197,94,.45); }
+    .status.err{ display:block; border-color: rgba(239,68,68,.55); }
+
+    .soundFloat{
+      position: fixed;
+      right: 14px;
+      bottom: 14px;
+      z-index: 9999;
+      display:none;
+    }
+
+    .assetWarn{
+      margin-top:12px;
+      padding:10px 12px;
+      border-radius: 16px;
+      background: rgba(255,255,255,.92);
+      border: 2px dashed rgba(239,68,68,.55);
+      font-weight:800;
+      color:#991b1b;
+      display:none;
+    }
+
+    /* ===== Intro gamer ===== */
+    body.lockScroll{ overflow:hidden; }
+    .wrap.hidden{ opacity:0; transform: translateY(16px) scale(.99); filter: blur(4px); }
+    .wrap.enter{ animation: gameEnter .9s cubic-bezier(.2,.9,.2,1) forwards; }
+    @keyframes gameEnter{
+      from{ opacity:0; transform: translateY(18px) scale(.985); filter: blur(6px); }
+      to{ opacity:1; transform: translateY(0) scale(1); filter: blur(0); }
+    }
+
+    .gameIntro{
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding: 20px;
+      background:
+        radial-gradient(900px 700px at 20% 20%, rgba(0,194,255,.22), transparent 55%),
+        radial-gradient(900px 700px at 90% 10%, rgba(255,122,0,.20), transparent 60%),
+        radial-gradient(900px 700px at 60% 95%, rgba(124,58,237,.18), transparent 60%),
+        linear-gradient(160deg, #070b14, #0b1220);
+      color: #fff;
+    }
+
+    .introPanel{
+      width: min(720px, 100%);
+      border-radius: 26px;
+      padding: 18px 18px 16px;
+      background: rgba(255,255,255,.06);
+      border: 2px solid rgba(255,255,255,.14);
+      box-shadow: 0 25px 70px rgba(0,0,0,.45);
+      backdrop-filter: blur(12px);
+      animation: panelFloat 2.6s ease-in-out infinite;
+    }
+    @keyframes panelFloat{
+      0%,100%{ transform: translateY(0); }
+      50%{ transform: translateY(-6px); }
+    }
+
+    .introTitle{
+      font-family: "Baloo 2","Fredoka",system-ui,sans-serif;
+      font-weight: 800;
+      font-size: clamp(30px, 5vw, 54px);
+      line-height: 1.05;
+      margin: 0 0 10px;
+      background: linear-gradient(90deg, #FF7A00, #FFD166, #00C2FF, #7C3AED);
+      -webkit-background-clip:text;
+      background-clip:text;
+      color: transparent;
+    }
+
+    .introText{
+      margin: 0;
+      color: rgba(255,255,255,.86);
+      font-weight: 700;
+      line-height: 1.35;
+      font-size: 16px;
+    }
+
+    .pressStart{
+      margin-top: 14px;
+      width: 100%;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+      flex-wrap:wrap;
+    }
+
+    .startBtn{
+      border:none;
+      cursor:pointer;
+      border-radius: 18px;
+      padding: 12px 14px;
+      font-weight: 900;
+      color: #1b140d;
+      background: linear-gradient(135deg, #FF7A00, #FFD166);
+      box-shadow: 0 18px 35px rgba(255,122,0,.20);
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+    }
+    .startBtn:active{ transform: translateY(1px) scale(.99); }
+
+    .blink{
+      font-weight: 900;
+      letter-spacing: .3px;
+      color: rgba(255,255,255,.90);
+      animation: blink 1.05s steps(2,end) infinite;
+    }
+    @keyframes blink{
+      0%, 49% { opacity: 1; }
+      50%, 100% { opacity: .15; }
+    }
+
+    .gameIntro.hide{ animation: introOut .5s ease forwards; }
+    @keyframes introOut{
+      to{ opacity:0; transform: scale(1.02); pointer-events:none; }
+    }
+  </style>
+</head>
+
+<body class="lockScroll">
+  <!-- Intro gamer (solo título + bienvenid@ + press start + iniciar) -->
+  <div class="gameIntro" id="gameIntro">
+    <div class="introPanel">
+      <h2 class="introTitle">Dante cumple 6 🎮🧡</h2>
+      <p class="introText">¡Bienvenid@! Presiona iniciar para ver la invitación y activar el sonido.</p>
+
+      <div class="pressStart">
+        <div class="blink">▶ PRESS START</div>
+        <button class="startBtn" id="startBtn" type="button" onclick="startGame()">🚀 Iniciar</button>
+      </div>
+    </div>
+  </div>
+
+  <main class="wrap hidden" id="wrap">
+
+    <!-- Izquierda: Invitación -->
+    <section class="card">
+      <div class="hero">
+        <!-- crash1 = principal -->
+        <img id="heroImg" class="heroImg" src="./crash1.png" alt="Invitación Dante" />
+      </div>
+
+      <div class="content">
+        <div class="nameTag">🧡 <span>Dante</span></div>
+
+        <h1 class="title">¡¡¡ Ven a celebrar mi cumple #6 !!!</h1>
+
+        <div class="subtitle">
+          <div class="chip"><span class="dot">🎯</span> Misión: <b>Divertirse</b> — ¡Sé parte de mi equipo! 🌀</div>
+        </div>
+
+        <div class="quote">
+          <div class="dot">✨</div>
+          <div>
+            <div>Nunca dejes de explorar, el mundo está lleno de maravillas…</div>
+            <div>¡Te espero en mi celebración!</div>
+          </div>
+        </div>
+
+        <div class="countLine" aria-live="polite">
+          <div class="countLeft">
+            <div class="ico">⏳</div>
+            <div>
+              <div class="countTxt" id="countdownTxt">Calculando…</div>
+              <div class="countMini">Sábado 11 de abril · 1:30 PM</div>
+            </div>
+          </div>
+          <div class="countMini" id="countdownSmall"></div>
+        </div>
+
+        <!-- info + crash2 a la derecha -->
+        <div class="infoRow">
+          <div class="grid">
+            <div class="pill">
+              <div class="ico" style="background:linear-gradient(135deg,var(--c4),#fff)">📅</div>
+              <div><h4>Fecha</h4><p>Sábado 11 de abril</p></div>
+            </div>
+            <div class="pill">
+              <div class="ico" style="background:linear-gradient(135deg,var(--c1),#fff)">🕜</div>
+              <div><h4>Hora</h4><p>1:30 PM</p></div>
+            </div>
+            <div class="pill">
+              <div class="ico" style="background:linear-gradient(135deg,var(--c5),#fff)">📍</div>
+              <div><h4>Lugar</h4><p>Mi dulce hogar</p><small>Residencial Miralago</small></div>
+            </div>
+            <div class="pill">
+              <div class="ico" style="background:linear-gradient(135deg,var(--c3),#fff)">🎮</div>
+              <div><h4>Temática</h4><p>Crash Bandicoot</p></div>
+            </div>
+          </div>
+
+          <!-- crash2 = imagen junto a la info -->
+          <div class="infoArtSide">
+            <img src="./crash2.jpg" alt="Crash decorativo" />
+          </div>
+        </div>
+
+        <div class="actions">
+          <a class="btn primary" href="https://waze.com/ul/hd4d02ry2u" target="_blank" rel="noopener">🚗 Abrir en Waze</a>
+          <button class="btn ghost" id="soundBtn" type="button">🔊 Sonido</button>
+        </div>
+
+        <div class="assetWarn" id="assetWarn"></div>
+      </div>
+    </section>
+
+    <!-- Derecha: RSVP -->
+    <aside class="card rsvp">
+      <h3>Confirmación de asistencia</h3>
+      <p>Completa los datos y presiona <b>Confirmar</b>. Se guardará tu confirmación y se abrirá WhatsApp.</p>
+
+      <form id="rsvpForm">
+        <div style="display:grid; gap:8px;">
+          <label for="nombre">Tu nombre</label>
+          <input id="nombre" name="nombre" placeholder="Ej: Luana" required />
+        </div>
+
+        <div class="grid2" style="margin-top:10px;">
+          <div style="display:grid; gap:8px;">
+            <label for="adultos">Adultos</label>
+            <input id="adultos" name="adultos" type="number" min="0" value="1" required />
+          </div>
+          <div style="display:grid; gap:8px;">
+            <label for="nino">Niño</label>
+            <input id="nino" name="nino" type="number" min="0" value="0" required />
+          </div>
+        </div>
+
+        <div class="grid2" style="margin-top:10px;">
+          <div style="display:grid; gap:8px;">
+            <label for="nina">Niña</label>
+            <input id="nina" name="nina" type="number" min="0" value="0" required />
+          </div>
+          <div style="display:grid; gap:8px;">
+            <label for="totalKids">Total peques</label>
+            <input id="totalKids" type="text" value="0" disabled />
+          </div>
+        </div>
+
+        <div style="display:grid; gap:8px; margin-top:10px;">
+          <label for="mensaje">Mensaje (opcional)</label>
+          <textarea id="mensaje" name="mensaje" placeholder="Ej: ¿Llevamos algo?"></textarea>
+        </div>
+
+        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;">
+          <button type="submit" class="btn primary">✅ Confirmar por WhatsApp</button>
+        </div>
+
+        <div class="status" id="statusBox"></div>
+      </form>
+    </aside>
+
+  </main>
+
+  <!-- Música: suena desde Iniciar hasta Confirmar -->
+  <audio id="introSound" preload="auto" loop>
+    <source src="./intro.mpeg" type="audio/mpeg" />
+  </audio>
+
+  <div class="soundFloat" id="soundFloat">
+    <button class="btn primary" id="enableSoundBtn" type="button">🔊 Toca para sonido</button>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script>
+    // =========================
+    // SUPABASE (tus claves)
+    // =========================
+    const SUPABASE_URL = "https://pajvlfqgoplsrgaerrwh.supabase.co";
+    const SUPABASE_ANON_KEY = "sb_publishable_mRUxgPh_YkT1Qyz0hebFnw__QsRekFd";
+
+    // WhatsApp
+    const RAW_WHATSAPP = "0050433680392";
+
+    // Evento
+    const EVENT_ISO = "2026-04-11T13:30:00-06:00";
+
+    // Tabla
+    const RSVP_TABLE = "rsvps";
+
+    // Audio
+    const TARGET_VOL = 0.45;
+    const FADE_IN_MS = 700;
+    const FADE_OUT_MS = 700;
+
+    const $ = (id)=>document.getElementById(id);
+
+    function normalizeWaNumber(raw){
+      let digits = String(raw).replace(/\D/g,'');
+      if (digits.startsWith("00")) digits = digits.slice(2);
+      while (digits.startsWith("0")) digits = digits.slice(1);
+      return digits;
+    }
+    const WHATSAPP_NUMBER = normalizeWaNumber(RAW_WHATSAPP);
+
+    // Supabase client (no rompe si falla)
+    let supabaseClient = null;
+    try{
+      supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    }catch(e){
+      supabaseClient = null;
+    }
+
+    // Countdown
+    const countdownTxt = $("countdownTxt");
+    const countdownSmall = $("countdownSmall");
+    const eventDate = new Date(EVENT_ISO);
+    const pad2 = n => String(n).padStart(2,"0");
+
+    function updateCountdown(){
+      const now = new Date();
+      const diff = eventDate - now;
+      if (diff <= 0){
+        countdownTxt.textContent = "¡Es hoy! 🌀🎉";
+        countdownSmall.textContent = "";
+        return;
+      }
+      const s = Math.floor(diff/1000);
+      const d = Math.floor(s/86400);
+      const h = Math.floor((s%86400)/3600);
+      const m = Math.floor((s%3600)/60);
+      const sec = s%60;
+      countdownTxt.textContent = `Faltan ${d} día(s), ${h}h ${m}m`;
+      countdownSmall.textContent = `${pad2(h)}:${pad2(m)}:${pad2(sec)}`;
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // Total peques
+    const ninoEl = $("nino");
+    const ninaEl = $("nina");
+    const totalKidsEl = $("totalKids");
+    function updateKidsTotal(){
+      totalKidsEl.value = String(Number(ninoEl.value||0) + Number(ninaEl.value||0));
+    }
+    ninoEl.addEventListener("input", updateKidsTotal);
+    ninaEl.addEventListener("input", updateKidsTotal);
+    updateKidsTotal();
+
+    // Audio fade
+    const introSound = $("introSound");
+    const soundBtn = $("soundBtn");
+    const soundFloat = $("soundFloat");
+    const enableSoundBtn = $("enableSoundBtn");
+
+    async function fadeTo(targetVolume, ms){
+      const start = introSound.volume ?? 0;
+      const startTime = performance.now();
+      const clamp = (v)=>Math.max(0, Math.min(1, v));
+      return new Promise((resolve)=>{
+        function step(t){
+          const p = Math.min(1, (t - startTime) / ms);
+          introSound.volume = clamp(start + (targetVolume - start) * p);
+          if (p < 1) requestAnimationFrame(step);
+          else resolve();
+        }
+        requestAnimationFrame(step);
+      });
+    }
+
+    async function startMusic(){
+      introSound.loop = true;
+      introSound.currentTime = 0;
+      introSound.volume = 0;
+      await introSound.play();
+      await fadeTo(TARGET_VOL, FADE_IN_MS);
+    }
+
+    async function stopMusic(){
+      try{
+        await fadeTo(0, FADE_OUT_MS);
+        introSound.pause();
+        introSound.currentTime = 0;
+      }catch{
+        try{ introSound.pause(); introSound.currentTime = 0; }catch{}
+      }
+    }
+
+    enableSoundBtn.addEventListener("click", async ()=>{
+      soundFloat.style.display = "none";
+      try{ await startMusic(); }catch{}
+    });
+
+    soundBtn.addEventListener("click", async ()=>{
+      try{
+        await startMusic();
+        soundFloat.style.display = "none";
+      }catch{
+        soundFloat.style.display = "block";
+      }
+    });
+
+    // Intro start global
+    function startGame(){
+      const gameIntro = $("gameIntro");
+      const wrap = $("wrap");
+
+      gameIntro.classList.add("hide");
+      document.body.classList.remove("lockScroll");
+      wrap.classList.remove("hidden");
+      wrap.classList.add("enter");
+
+      setTimeout(()=>{ gameIntro.style.display = "none"; }, 520);
+
+      (async ()=>{
+        try{
+          await startMusic();
+          soundFloat.style.display = "none";
+        }catch{
+          soundFloat.style.display = "block";
+        }
+      })();
+    }
+    window.startGame = startGame;
+
+    // Guardar RSVP
+    async function saveRSVP(data){
+      if (!supabaseClient) return { ok:false, error: "No supabase client" };
+
+      const payload = {
+        nombre: String(data.nombre || "").trim(),
+        adultos: Number(data.adultos || 0),
+        nino: Number(data.nino || 0),
+        nina: Number(data.nina || 0),
+        total_kids: Number(data.nino || 0) + Number(data.nina || 0),
+        mensaje: String(data.mensaje || "").trim(),
+        user_agent: navigator.userAgent
+      };
+
+      const { error } = await supabaseClient.from(RSVP_TABLE).insert(payload);
+      if (error) return { ok:false, error };
+      return { ok:true };
+    }
+
+    function buildMessage(data){
+      const nombre = (data.nombre||"").trim();
+      const adultos = Number(data.adultos);
+      const nino = Number(data.nino);
+      const nina = Number(data.nina);
+      const extra = (data.mensaje||"").trim();
+
+      const INV_URL = window.location.href;
+      const WAZE_PLAIN = "waze.com/ul/hd4d02ry2u";
+
+      let msg =
+`🎉 Invitación: ${INV_URL}
+
+¡Hola! Soy ${nombre} 😊
+Confirmo asistencia para el cumple de Dante 🎮🧡
+🧑‍🦱 Adultos: ${adultos}
+👦 Niño: ${nino}
+👧 Niña: ${nina}
+📅 Sábado 11 de abril
+🕜 1:30 PM
+📍 Mi dulce hogar, Residencial Miralago
+🧭 Waze: ${WAZE_PLAIN}`;
+
+      if (extra) msg += `\n\n📝 Nota: ${extra}`;
+      msg += `\n\nNunca dejes de explorar… ¡Te espero en mi celebración! ✨`;
+      return msg;
+    }
+
+    // Form submit
+    const form = $("rsvpForm");
+    const statusBox = $("statusBox");
+    const setStatus = (type, text) => {
+      statusBox.className = "status " + (type === "ok" ? "ok" : "err");
+      statusBox.textContent = text;
+    };
+
+    form.addEventListener("submit", async (e)=>{
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(form).entries());
+      const total = Number(data.adultos) + Number(data.nino) + Number(data.nina);
+
+      if (!data.nombre || String(data.nombre).trim().length < 2){
+        setStatus("err","⚠️ Escribe tu nombre, por favor.");
+        return;
+      }
+      if (total === 0){
+        setStatus("err","⚠️ Coloca al menos 1 persona.");
+        return;
+      }
+
+      setStatus("ok","💾 Guardando confirmación…");
+      const saved = await saveRSVP(data);
+
+      if (saved.ok){
+        setStatus("ok","✅ Guardado. Abriendo WhatsApp…");
+      }else{
+        setStatus("err","⚠️ No se pudo guardar. Igual abriré WhatsApp.");
+      }
+
+      await stopMusic();
+
+      window.open(
+        `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(buildMessage(data))}`,
+        "_blank"
+      );
+    });
+
+    // Avisos de assets
+    const warn = $("assetWarn");
+    const showWarn = (msg)=>{ warn.style.display = "block"; warn.textContent = msg; };
+
+    $("heroImg").addEventListener("error", ()=> showWarn("⚠️ No se encontró crash1.png. Verifica el nombre y que esté junto a index.html."));
+    introSound.addEventListener("error", ()=> showWarn("⚠️ No se encontró intro.mpeg. Súbelo junto a index.html."));
+  </script>
+</body>
+</html>
