@@ -296,6 +296,7 @@
   background: linear-gradient(145deg,#f6f6f6,#ffffff);
 }
 
+/* Crash2 al lado de la info: que se vea completo y centrado */
 .infoArtSide{
   display:flex;
   align-items:center;
@@ -308,7 +309,11 @@
 
   background: linear-gradient(145deg,#f6f6f6,#ffffff);
 
-  padding: 10px;           /* ✅ aquí, se nota más */
+  padding: 10px;
+
+  /* ✅ CLAVE: hacerlo más alto que ancho */
+  aspect-ratio: 3 / 4;     /* prueba 4/5 si lo quieres aún más alto */
+  max-height: 360px;       /* opcional, evita que quede gigante */
 }
 
 .infoArtSide img{
@@ -316,10 +321,10 @@
   height:100%;
   display:block;
 
-  object-fit: contain;     /* ✅ no recorta */
+  object-fit: contain;     /* ✅ NO recorta */
   object-position: center;
 
-  padding: 0;              /* ✅ quítalo de la imagen */
+  padding: 0;
   filter: contrast(1.15) saturate(1.20);
 }
 
@@ -916,5 +921,6 @@ Confirmo asistencia para el cumple de Dante 🎮🧡
   </script>
 </body>
 </html>
+
 
 
