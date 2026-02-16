@@ -295,37 +295,19 @@
   /* fondo suave para que “rellene” cuando la imagen use contain */
   background: linear-gradient(145deg,#f6f6f6,#ffffff);
 }
-/* Crash2 al lado de la info: que se vea completo y centrado */
-.infoArtSide{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  border-radius: 22px;
-  overflow:hidden;
-  border: 2px solid rgba(0,0,0,.06);
-  box-shadow: 0 18px 35px rgba(2,6,23,.12);
-
-  background: linear-gradient(145deg,#f6f6f6,#ffffff);
-
-  padding: 10px;
-
-  /* ✅ CLAVE: hacerlo más alto que ancho */
-  aspect-ratio: 3 / 4;     /* prueba 4/5 si lo quieres aún más alto */
-  max-height: 360px;       /* opcional, evita que quede gigante */
-}
 
 .infoArtSide img{
   width:100%;
   height:100%;
   display:block;
 
-  object-fit: contain;     /* ✅ NO recorta */
+  object-fit: contain;      /* no recorta */
   object-position: center;
 
-  padding: 0;
+  padding: 12px;
   filter: contrast(1.15) saturate(1.20);
 }
+
     .actions{ margin-top: 14px; display:flex; gap:10px; flex-wrap:wrap; justify-content:center; }
     .btn{
       border:none;
@@ -919,7 +901,3 @@ Confirmo asistencia para el cumple de Dante 🎮🧡
   </script>
 </body>
 </html>
-
-
-
-
