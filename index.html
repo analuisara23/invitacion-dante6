@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Invitación | Dante 6</title>
 
-  <!-- Vista previa (cuando publiques cambia SITE_URL por tu dominio real) -->
+  <!-- Vista previa -->
   <meta property="og:title" content="🎉 Dante cumple 6" />
-  <meta property="og:description" content="Sábado 11 de abril · 1:30 PM · Res.Miralago - Fam.Pineda" />
-  <meta property="og:image" content="SITE_URL/hero.png" />
-  <meta property="og:url" content="SITE_URL/" />
+  <meta property="og:description" content="Sábado 11 de abril · 1:30 PM · Res. Miralago - Fam. Pineda" />
+  <meta property="og:image" content="https://TUUSUARIO.github.io/TUREPO/hero.png" />
+  <meta property="og:url" content="https://TUUSUARIO.github.io/TUREPO/" />
   <meta name="twitter:card" content="summary_large_image" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -30,7 +30,6 @@
     }
     *{ box-sizing:border-box; }
 
-    /* Fondo más “vegetación” SOLO CSS */
     body{
       margin:0;
       font-family: "Fredoka", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
@@ -60,7 +59,6 @@
     }
     @media (max-width:980px){ .wrap{ grid-template-columns:1fr; } }
 
-    /* Tarjetas con toque jaspeado */
     .card{
       position:relative;
       border-radius: var(--r);
@@ -75,7 +73,6 @@
       backdrop-filter: blur(10px);
     }
 
-    /* HERO */
     .hero{
       position:relative;
       height: 320px;
@@ -90,10 +87,8 @@
       object-fit:cover;
       object-position:center 25%;
       transform: scale(1.01);
-      /* Más claridad */
       filter: brightness(1.12) contrast(1.12) saturate(1.20);
     }
-    /* Overlay suave (no tapa, solo “acabado”) */
     .hero::after{
       content:"";
       position:absolute; inset:0;
@@ -111,7 +106,6 @@
       position:relative;
     }
 
-    /* “Hojas” fuertes SOLO CSS */
     .content::before,
     .content::after{
       content:"";
@@ -145,7 +139,6 @@
     }
     .content > *{ position:relative; z-index:1; }
 
-    /* Etiqueta nombre (para que siempre se vea “Dante”) */
     .nameTag{
       display:inline-flex;
       align-items:center;
@@ -158,7 +151,6 @@
       margin-bottom:10px;
     }
 
-    /* Título centrado */
     .title{
       font-family: "Baloo 2", "Fredoka", system-ui, sans-serif;
       font-weight: 800;
@@ -250,7 +242,6 @@
     .countTxt{ font-weight:800; font-size:16px; }
     .countMini{ font-weight:700; color:var(--muted); font-size:12px; }
 
-    /* Info + imagen crash2 a la derecha */
     .infoRow{
       margin-top: 16px;
       display:grid;
@@ -282,33 +273,31 @@
     .pill p{ margin:4px 0 0; font-weight:800; font-size:16px; }
     .pill small{ display:block; margin-top:4px; color:var(--muted); font-weight:700; }
 
-.infoArtSide{
-  display:flex;
-  align-items:center;
-  justify-content:center;
+    .infoArtSide{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border-radius: 22px;
+      overflow:hidden;
+      border: 2px solid rgba(0,0,0,.06);
+      box-shadow: 0 18px 35px rgba(2,6,23,.12);
+      background: linear-gradient(145deg,#f6f6f6,#ffffff);
+      aspect-ratio: 1 / 1;
+      height: 260px;
+    }
 
-  border-radius: 22px;
-  overflow:hidden;
-  border: 2px solid rgba(0,0,0,.06);
-  box-shadow: 0 18px 35px rgba(2,6,23,.12);
+    .infoArtSide img{
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: contain;
+      object-position: center center;
+      margin: 0;
+      padding: 0;
+      transform: scale(.95);
+      filter: contrast(1.15) saturate(1.20);
+    }
 
-  /* fondo suave para que “rellene” cuando la imagen use contain */
-  background: linear-gradient(145deg,#f6f6f6,#ffffff);
-  aspect-ratio: 1 / 1;   /* ✅ cuadro cuadrado (se ve mejor) */
-  height: 260px;         /* ✅ ajusta: 220 / 240 / 260 */
-}
-.infoArtSide img {
-  width: 100%;
-  height: 100%;
-  display: block;
-
-  object-fit: cover;          /* llena el contenedor */
-  object-position: 92% 50%; /* pegado al borde derecho */
-  margin: 0;                  /* elimina márgenes extra */
-  padding: 0;                 /* elimina relleno extra */
-  transform: scale(.92);
-  filter: contrast(1.15) saturate(1.20); 
-}
     .actions{ margin-top: 14px; display:flex; gap:10px; flex-wrap:wrap; justify-content:center; }
     .btn{
       border:none;
@@ -336,7 +325,6 @@
       color: var(--ink);
     }
 
-    /* RSVP */
     .rsvp{
       padding:22px;
       background: rgba(255,255,255,.95);
@@ -346,7 +334,6 @@
     .rsvp h3{ margin:0 0 6px; font-size:22px; font-weight:800; }
     .rsvp p{ margin:0 0 14px; color:var(--muted); font-weight:700; font-size:14px; line-height:1.4; }
 
-    /* hero.png de fondo (más claro) */
     .rsvp::before{
       content:"";
       position:absolute;
@@ -407,7 +394,6 @@
       display:none;
     }
 
-    /* ===== Intro gamer ===== */
     body.lockScroll{ overflow:hidden; }
     .wrap.hidden{ opacity:0; transform: translateY(16px) scale(.99); filter: blur(4px); }
     .wrap.enter{ animation: gameEnter .9s cubic-bezier(.2,.9,.2,1) forwards; }
@@ -511,7 +497,6 @@
 </head>
 
 <body class="lockScroll">
-  <!-- Intro gamer (solo título + bienvenid@ + press start + iniciar) -->
   <div class="gameIntro" id="gameIntro">
     <div class="introPanel">
       <h2 class="introTitle">Dante cumple 6 🎮🧡</h2>
@@ -526,17 +511,15 @@
 
   <main class="wrap hidden" id="wrap">
 
-    <!-- Izquierda: Invitación -->
     <section class="card">
       <div class="hero">
-        <!-- crash1 = principal -->
         <img id="heroImg" class="heroImg" src="./crash1.png" alt="Invitación Dante" />
       </div>
 
       <div class="content">
         <div class="nameTag">🧡 <span>Dante</span></div>
 
-        <h1 class="title">¡¡¡ Ven a celebrar mi cumple #6 !!!</h1>
+        <h1 class="title">¡¡¡Ven a celebrar mi cumple #6!!!</h1>
 
         <div class="subtitle">
           <div class="chip"><span class="dot">🎯</span> Misión: <b>Divertirse</b> — ¡Sé parte de mi equipo! 🌀</div>
@@ -546,7 +529,7 @@
           <div class="dot">✨</div>
           <div>
             <div>Nunca dejes de explorar, el mundo está lleno de maravillas…</div>
-                       <div>¡Te espero en mi celebración!</div>
+            <div>¡Te espero en mi celebración!</div>
           </div>
         </div>
 
@@ -561,7 +544,6 @@
           <div class="countMini" id="countdownSmall"></div>
         </div>
 
-        <!-- info + crash2 a la derecha -->
         <div class="infoRow">
           <div class="grid">
             <div class="pill">
@@ -582,7 +564,6 @@
             </div>
           </div>
 
-          <!-- crash2 = imagen junto a la info -->
           <div class="infoArtSide">
             <img src="./crash2.jpg" alt="Crash decorativo" />
           </div>
@@ -597,7 +578,6 @@
       </div>
     </section>
 
-    <!-- Derecha: RSVP -->
     <aside class="card rsvp">
       <h3>Confirmación de asistencia</h3>
       <p>Completa los datos y presiona <b>Confirmar</b>. Se guardará tu confirmación y se abrirá WhatsApp.</p>
@@ -632,7 +612,7 @@
 
         <div style="display:grid; gap:8px; margin-top:10px;">
           <label for="mensaje">Mensaje (opcional)</label>
-          <textarea id="mensaje" name="mensaje" placeholder="Ej: Estaremos puntuales "></textarea>
+          <textarea id="mensaje" name="mensaje" placeholder="Ej: Estaremos puntuales"></textarea>
         </div>
 
         <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;">
@@ -645,7 +625,6 @@
 
   </main>
 
-  <!-- Música: suena desde Iniciar hasta Confirmar -->
   <audio id="introSound" preload="auto" loop>
     <source src="./intro.mpeg" type="audio/mpeg" />
   </audio>
@@ -657,22 +636,13 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <script>
-    // =========================
-    // SUPABASE (tus claves)
-    // =========================
     const SUPABASE_URL = "https://pajvlfqgoplsrgaerrwh.supabase.co";
     const SUPABASE_ANON_KEY = "sb_publishable_mRUxgPh_YkT1Qyz0hebFnw__QsRekFd";
 
-    // WhatsApp
     const RAW_WHATSAPP = "0050433680392";
-
-    // Evento
     const EVENT_ISO = "2026-04-11T13:30:00-06:00";
-
-    // Tabla
     const RSVP_TABLE = "rsvps";
 
-    // Audio
     const TARGET_VOL = 0.45;
     const FADE_IN_MS = 700;
     const FADE_OUT_MS = 700;
@@ -687,7 +657,6 @@
     }
     const WHATSAPP_NUMBER = normalizeWaNumber(RAW_WHATSAPP);
 
-    // Supabase client (no rompe si falla)
     let supabaseClient = null;
     try{
       supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -695,7 +664,6 @@
       supabaseClient = null;
     }
 
-    // Countdown
     const countdownTxt = $("countdownTxt");
     const countdownSmall = $("countdownSmall");
     const eventDate = new Date(EVENT_ISO);
@@ -720,18 +688,17 @@
     updateCountdown();
     setInterval(updateCountdown, 1000);
 
-    // Total peques
     const ninoEl = $("nino");
     const ninaEl = $("nina");
     const totalKidsEl = $("totalKids");
+
     function updateKidsTotal(){
-      totalKidsEl.value = String(Number(ninoEl.value||0) + Number(ninaEl.value||0));
+      totalKidsEl.value = String(Number(ninoEl.value || 0) + Number(ninaEl.value || 0));
     }
     ninoEl.addEventListener("input", updateKidsTotal);
     ninaEl.addEventListener("input", updateKidsTotal);
     updateKidsTotal();
 
-    // Audio fade
     const introSound = $("introSound");
     const soundBtn = $("soundBtn");
     const soundFloat = $("soundFloat");
@@ -741,6 +708,7 @@
       const start = introSound.volume ?? 0;
       const startTime = performance.now();
       const clamp = (v)=>Math.max(0, Math.min(1, v));
+
       return new Promise((resolve)=>{
         function step(t){
           const p = Math.min(1, (t - startTime) / ms);
@@ -766,7 +734,10 @@
         introSound.pause();
         introSound.currentTime = 0;
       }catch{
-        try{ introSound.pause(); introSound.currentTime = 0; }catch{}
+        try{
+          introSound.pause();
+          introSound.currentTime = 0;
+        }catch{}
       }
     }
 
@@ -784,7 +755,6 @@
       }
     });
 
-    // Intro start global
     function startGame(){
       const gameIntro = $("gameIntro");
       const wrap = $("wrap");
@@ -807,7 +777,6 @@
     }
     window.startGame = startGame;
 
-    // Guardar RSVP
     async function saveRSVP(data){
       if (!supabaseClient) return { ok:false, error: "No supabase client" };
 
@@ -827,11 +796,11 @@
     }
 
     function buildMessage(data){
-      const nombre = (data.nombre||"").trim();
+      const nombre = (data.nombre || "").trim();
       const adultos = Number(data.adultos);
       const nino = Number(data.nino);
       const nina = Number(data.nina);
-      const extra = (data.mensaje||"").trim();
+      const extra = (data.mensaje || "").trim();
 
       const INV_URL = window.location.href;
       const WAZE_PLAIN = "waze.com/ul/hd4d02ry2u";
@@ -854,9 +823,9 @@ Confirmo asistencia para el cumple de Dante 🎮🧡
       return msg;
     }
 
-    // Form submit
     const form = $("rsvpForm");
     const statusBox = $("statusBox");
+
     const setStatus = (type, text) => {
       statusBox.className = "status " + (type === "ok" ? "ok" : "err");
       statusBox.textContent = text;
@@ -864,6 +833,7 @@ Confirmo asistencia para el cumple de Dante 🎮🧡
 
     form.addEventListener("submit", async (e)=>{
       e.preventDefault();
+
       const data = Object.fromEntries(new FormData(form).entries());
       const total = Number(data.adultos) + Number(data.nino) + Number(data.nina);
 
@@ -871,10 +841,14 @@ Confirmo asistencia para el cumple de Dante 🎮🧡
         setStatus("err","⚠️ Escribe tu nombre, por favor.");
         return;
       }
+
       if (total === 0){
         setStatus("err","⚠️ Coloca al menos 1 persona.");
         return;
       }
+
+      const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(buildMessage(data))}`;
+      const popup = window.open("about:blank", "_blank");
 
       setStatus("ok","💾 Guardando confirmación…");
       const saved = await saveRSVP(data);
@@ -887,24 +861,26 @@ Confirmo asistencia para el cumple de Dante 🎮🧡
 
       await stopMusic();
 
-      window.open(
-        `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(buildMessage(data))}`,
-        "_blank"
-      );
+      if (popup) {
+        popup.location.href = waUrl;
+      } else {
+        window.location.href = waUrl;
+      }
     });
 
-    // Avisos de assets
     const warn = $("assetWarn");
-    const showWarn = (msg)=>{ warn.style.display = "block"; warn.textContent = msg; };
+    const showWarn = (msg)=>{
+      warn.style.display = "block";
+      warn.textContent = msg;
+    };
 
-    $("heroImg").addEventListener("error", ()=> showWarn("⚠️ No se encontró crash1.png. Verifica el nombre y que esté junto a index.html."));
-    introSound.addEventListener("error", ()=> showWarn("⚠️ No se encontró intro.mpeg. Súbelo junto a index.html."));
+    $("heroImg").addEventListener("error", ()=>{
+      showWarn("⚠️ No se encontró crash1.png. Verifica el nombre y que esté junto a index.html.");
+    });
+
+    introSound.addEventListener("error", ()=>{
+      showWarn("⚠️ No se encontró intro.mpeg. Súbelo junto a index.html.");
+    });
   </script>
 </body>
 </html>
-
-
-
-
-
-
