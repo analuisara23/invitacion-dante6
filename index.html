@@ -351,20 +351,20 @@
     /* ─── INFO GRID ─── */
     .infoRow {
       margin-top: 14px;
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 12px;
-      align-items: start;
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
+      align-items: stretch;
       animation: fadeUp .5s .9s ease both;
     }
-    @media (max-width: 600px) { .infoRow { grid-template-columns: 1fr; } }
 
     .grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 10px;
+      gap: 8px;
+      flex: 1 1 0;
+      min-width: 0;
     }
-    @media (max-width: 400px) { .grid { grid-template-columns: 1fr; } }
 
     .pill {
       display: flex;
@@ -388,17 +388,16 @@
     .pill small { display: block; margin-top: 3px; color: var(--muted); font-weight: 700; font-size: 12px; }
 
     .infoArtSide {
-      width: clamp(110px, 20vw, 160px);
-      aspect-ratio: 1;
+      width: clamp(90px, 22vw, 160px);
+      flex: 0 0 clamp(90px, 22vw, 160px);
       border-radius: var(--r-sm);
       overflow: hidden;
       border: 1.5px solid rgba(0,0,0,.06);
       box-shadow: 0 16px 32px rgba(2,6,23,.12);
       background: linear-gradient(145deg, #f6f6f6, #fff);
-    }
-    @media (max-width: 600px) {
-      .infoArtSide { width: 100%; aspect-ratio: 16/7; }
-      .infoArtSide img { object-fit: contain; object-position: center; }
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     .infoArtSide img {
       width: 100%; height: 100%;
@@ -846,7 +845,6 @@
         <div class="actions">
           <a class="btn primary" href="https://waze.com/ul/hd4d02ry2u" target="_blank" rel="noopener">🚗 Waze</a>
           <a class="btn maps" href="https://maps.google.com/?q=Residencial+Miralago+Honduras" target="_blank" rel="noopener">🗺️ Google Maps</a>
-          <button class="btn ghost" id="soundBtn" type="button">🔊 Sonido</button>
         </div>
 
         <div class="assetWarn" id="assetWarn"></div>
@@ -903,23 +901,9 @@
     </aside>
   </main>
 
-  <!-- ─── MUSIC BAR ─── -->
-  <div class="musicBar" id="musicBar">
-    <div class="eqBars" id="eqBars">
-      <div class="eqBar" style="height:14px; --spd:.5s"></div>
-      <div class="eqBar" style="height:8px;  --spd:.7s"></div>
-      <div class="eqBar" style="height:18px; --spd:.4s"></div>
-      <div class="eqBar" style="height:10px; --spd:.6s"></div>
-      <div class="eqBar" style="height:16px; --spd:.8s"></div>
-    </div>
-    <span class="songName">🎮 Crash Bandicoot Theme</span>
-    <button class="btn ghost" id="musicBarToggle" type="button" style="padding:8px 14px;font-size:13px;">⏸ Pausar</button>
-  </div>
 
-  <!-- SOUND FLOAT (fallback) -->
-  <div class="soundFloat" id="soundFloat">
-    <button class="btn primary" id="enableSoundBtn" type="button">🔊 Toca para sonido</button>
-  </div>
+
+
 
   <audio id="introSound" preload="auto" loop>
     <source src="./intro.mpeg" type="audio/mpeg" />
@@ -1033,13 +1017,7 @@
        AUDIO
     ══════════════════════════════════════ */
     const introSound   = $("introSound");
-    const soundBtn     = $("soundBtn");
-    const soundFloat   = $("soundFloat");
-    const enableSoundBtn = $("enableSoundBtn");
-    const musicBar     = $("musicBar");
-    const musicBarToggle = $("musicBarToggle");
-    const eqBars       = document.querySelectorAll(".eqBar");
-    let musicPlaying   = false;
+    let musicPlaying = false;
 
     async function fadeTo(vol, ms){
       const start = introSound.volume ?? 0;
@@ -1054,13 +1032,6 @@
       });
     }
 
-    function setEqPlaying(on){
-      eqBars.forEach(b => {
-        if (on) b.classList.add("playing");
-        else    b.classList.remove("playing");
-      });
-    }
-
     async function startMusic(){
       introSound.loop = true;
       introSound.currentTime = 0;
@@ -1068,9 +1039,6 @@
       await introSound.play();
       await fadeTo(TARGET_VOL, FADE_MS);
       musicPlaying = true;
-      musicBar.classList.add("visible");
-      setEqPlaying(true);
-      musicBarToggle.textContent = "⏸ Pausar";
     }
 
     async function stopMusic(){
@@ -1080,36 +1048,7 @@
         introSound.currentTime = 0;
       } catch { introSound.pause(); introSound.currentTime = 0; }
       musicPlaying = false;
-      setEqPlaying(false);
-      musicBarToggle.textContent = "▶ Reanudar";
     }
-
-    musicBarToggle.addEventListener("click", async () => {
-      if (musicPlaying){
-        await fadeTo(0, FADE_MS);
-        introSound.pause();
-        musicPlaying = false;
-        setEqPlaying(false);
-        musicBarToggle.textContent = "▶ Reanudar";
-      } else {
-        introSound.volume = 0;
-        await introSound.play();
-        await fadeTo(TARGET_VOL, FADE_MS);
-        musicPlaying = true;
-        setEqPlaying(true);
-        musicBarToggle.textContent = "⏸ Pausar";
-      }
-    });
-
-    enableSoundBtn.addEventListener("click", async () => {
-      soundFloat.style.display = "none";
-      try { await startMusic(); } catch {}
-    });
-
-    soundBtn.addEventListener("click", async () => {
-      try { await startMusic(); soundFloat.style.display = "none"; }
-      catch { soundFloat.style.display = "block"; }
-    });
 
     /* ══════════════════════════════════════
        CONFETTI + BUBBLES
@@ -1159,13 +1098,13 @@
         "rgba(0,194,255,.25)","rgba(124,58,237,.22)","rgba(255,122,0,.20)",
         "rgba(34,197,94,.22)","rgba(244,114,182,.22)","rgba(255,209,102,.25)"
       ];
-      for (let i = 0; i < 22; i++){
+      for (let i = 0; i < 35; i++){
         const el   = document.createElement("div");
         el.className = "bubble";
         const size = 18 + Math.random() * 36;
         const x    = 5 + Math.random() * 90;
-        const dur  = 2.5 + Math.random() * 2.5;
-        const delay= Math.random() * 1.2;
+        const dur  = 5 + Math.random() * 5;
+        const delay= Math.random() * 2;
         const color= bubbleColors[Math.floor(Math.random()*bubbleColors.length)];
         el.style.cssText = `
           left:${x}vw; bottom:-60px;
@@ -1174,7 +1113,7 @@
           --bdur:${dur}s; --bdelay:${delay}s;
         `;
         document.body.appendChild(el);
-        setTimeout(() => el.remove(), (dur + delay + 0.3) * 1000);
+        setTimeout(() => el.remove(), (dur + delay + 0.5) * 1000);
       }
     }
 
