@@ -357,7 +357,7 @@
       align-items: start;
       animation: fadeUp .5s .9s ease both;
     }
-    @media (max-width: 520px) { .infoRow { grid-template-columns: 1fr; } }
+    @media (max-width: 600px) { .infoRow { grid-template-columns: 1fr; } }
 
     .grid {
       display: grid;
@@ -388,7 +388,7 @@
     .pill small { display: block; margin-top: 3px; color: var(--muted); font-weight: 700; font-size: 12px; }
 
     .infoArtSide {
-      width: clamp(100px, 18vw, 160px);
+      width: clamp(110px, 20vw, 160px);
       aspect-ratio: 1;
       border-radius: var(--r-sm);
       overflow: hidden;
@@ -396,9 +396,9 @@
       box-shadow: 0 16px 32px rgba(2,6,23,.12);
       background: linear-gradient(145deg, #f6f6f6, #fff);
     }
-    @media (max-width: 520px) {
-      .infoArtSide { width: 100%; aspect-ratio: 3/1; }
-      .infoArtSide img { object-fit: cover; }
+    @media (max-width: 600px) {
+      .infoArtSide { width: 100%; aspect-ratio: 16/7; }
+      .infoArtSide img { object-fit: contain; object-position: center; }
     }
     .infoArtSide img {
       width: 100%; height: 100%;
@@ -724,6 +724,22 @@
       opacity: 0;
       pointer-events: none;
       z-index: 99999;
+    }
+    /* ─── BUBBLES ─── */
+    .bubble {
+      position: fixed;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 99998;
+      opacity: 0;
+      border: 2px solid rgba(255,255,255,.7);
+      animation: bubbleRise var(--bdur, 3s) var(--bdelay, 0s) ease-in forwards;
+    }
+    @keyframes bubbleRise {
+      0%   { opacity: 0; transform: translateY(0) scale(0.3); }
+      15%  { opacity: 0.7; transform: translateY(-30px) scale(1); }
+      85%  { opacity: 0.4; }
+      100% { opacity: 0; transform: translateY(-80vh) scale(1.1); }
     }
 
     /* extra breathing room for music bar */
@@ -1096,40 +1112,69 @@
     });
 
     /* ══════════════════════════════════════
-       CONFETTI
+       CONFETTI + BUBBLES
     ══════════════════════════════════════ */
     function launchConfetti(){
       const colors = ["#FF7A00","#FFD166","#00C2FF","#7C3AED","#22C55E","#F472B6","#FF4D4D"];
-      for (let i = 0; i < 60; i++){
+      const total = 90;
+      for (let i = 0; i < total; i++){
         const el = document.createElement("div");
         el.className = "confetti-piece";
-        const size  = 6 + Math.random() * 10;
+        const size  = 6 + Math.random() * 12;
         const color = colors[Math.floor(Math.random()*colors.length)];
         const x     = Math.random() * window.innerWidth;
         el.style.cssText = `
           left:${x}px; top:-10px;
           width:${size}px; height:${size}px;
           background:${color};
-          border-radius:${Math.random()>.5?'50%':'2px'};
+          border-radius:${Math.random()>.5?'50%':'3px'};
           opacity:1;
         `;
         document.body.appendChild(el);
 
-        const dur    = 1200 + Math.random()*1000;
-        const destY  = window.innerHeight * (.4 + Math.random()*.5);
-        const destX  = x + (Math.random()-.5)*200;
-        const rot    = Math.random()*720;
-        const start  = performance.now();
+        const dur   = 1800 + Math.random()*1600;
+        const destY = window.innerHeight * (.5 + Math.random()*.5);
+        const destX = x + (Math.random()-.5)*260;
+        const rot   = Math.random()*900;
+        const start = performance.now() + i * 14;
 
         function animate(now){
-          const p = Math.min(1,(now-start)/dur);
+          if (now < start){ requestAnimationFrame(animate); return; }
+          const p  = Math.min(1,(now-start)/dur);
           const ep = 1-(1-p)*(1-p);
           el.style.transform = `translate(${(destX-x)*ep}px, ${destY*ep}px) rotate(${rot*p}deg)`;
-          el.style.opacity   = String(1 - p*p);
+          el.style.opacity   = String(Math.max(0, 1 - p*p*1.1));
           if (p < 1) requestAnimationFrame(animate);
           else el.remove();
         }
-        setTimeout(() => requestAnimationFrame(animate), i * 18);
+        requestAnimationFrame(animate);
+      }
+
+      // Bubbles after confetti settles
+      setTimeout(() => launchBubbles(), 1400);
+    }
+
+    function launchBubbles(){
+      const bubbleColors = [
+        "rgba(0,194,255,.25)","rgba(124,58,237,.22)","rgba(255,122,0,.20)",
+        "rgba(34,197,94,.22)","rgba(244,114,182,.22)","rgba(255,209,102,.25)"
+      ];
+      for (let i = 0; i < 22; i++){
+        const el   = document.createElement("div");
+        el.className = "bubble";
+        const size = 18 + Math.random() * 36;
+        const x    = 5 + Math.random() * 90;
+        const dur  = 2.5 + Math.random() * 2.5;
+        const delay= Math.random() * 1.2;
+        const color= bubbleColors[Math.floor(Math.random()*bubbleColors.length)];
+        el.style.cssText = `
+          left:${x}vw; bottom:-60px;
+          width:${size}px; height:${size}px;
+          background:${color};
+          --bdur:${dur}s; --bdelay:${delay}s;
+        `;
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), (dur + delay + 0.3) * 1000);
       }
     }
 
@@ -1187,12 +1232,9 @@
       const nino    = Number(data.nino);
       const nina    = Number(data.nina);
       const extra   = (data.mensaje||"").trim();
-      const INV_URL = window.location.href;
 
       let msg =
-`🎉 Invitación: ${INV_URL}
-
-¡Hola! Soy ${nombre} 😊
+`¡Hola! Soy ${nombre} 😊
 Confirmo asistencia para el cumple de Dante 🎮🧡
 🧑‍🦱 Adultos: ${adultos}
 👦 Niño: ${nino}
