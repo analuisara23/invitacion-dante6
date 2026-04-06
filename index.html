@@ -359,8 +359,8 @@
     }
 
     .grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+      display: flex;
+      flex-direction: column;
       gap: 8px;
       flex: 1 1 0;
       min-width: 0;
@@ -369,14 +369,14 @@
     .pill {
       display: flex;
       gap: 10px;
-      align-items: flex-start;
-      padding: 12px 14px;
+      align-items: center;
+      padding: 10px 12px;
       border-radius: var(--r-sm);
       background: rgba(255,255,255,.92);
       border: 1.5px solid rgba(0,0,0,.06);
       transition: transform .15s ease, box-shadow .15s ease;
     }
-    .pill:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(2,6,23,.10); }
+    .pill:hover { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(2,6,23,.10); }
     .pill .ico-sm {
       width: 38px; height: 38px; flex: 0 0 auto;
       border-radius: 13px;
@@ -388,8 +388,8 @@
     .pill small { display: block; margin-top: 3px; color: var(--muted); font-weight: 700; font-size: 12px; }
 
     .infoArtSide {
-      width: clamp(90px, 22vw, 160px);
-      flex: 0 0 clamp(90px, 22vw, 160px);
+      flex: 0 0 clamp(90px, 28vw, 150px);
+      width: clamp(90px, 28vw, 150px);
       border-radius: var(--r-sm);
       overflow: hidden;
       border: 1.5px solid rgba(0,0,0,.06);
@@ -398,16 +398,18 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      align-self: stretch;
     }
     .infoArtSide img {
-      width: 100%; height: 100%;
+      width: 100%;
+      height: 100%;
       display: block;
-      object-fit: contain;
-      transform: scale(.95);
+      object-fit: cover;
+      object-position: center;
       filter: contrast(1.15) saturate(1.2);
       transition: transform .4s ease;
     }
-    .infoArtSide:hover img { transform: scale(1.05) rotate(-2deg); }
+    .infoArtSide:hover img { transform: scale(1.05); }
 
     /* ─── ACTIONS ─── */
     .actions {
@@ -741,6 +743,48 @@
       100% { opacity: 0; transform: translateY(-80vh) scale(1.1); }
     }
 
+    /* ─── MUSIC BAR ─── */
+    .musicBar {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      z-index: 9998;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 10px 20px;
+      background: rgba(255,255,255,.96);
+      border-top: 1.5px solid rgba(0,0,0,.06);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 -8px 24px rgba(2,6,23,.08);
+      transform: translateY(100%);
+      transition: transform .4s cubic-bezier(.34,1.2,.64,1);
+    }
+    .musicBar.visible { transform: translateY(0); }
+    .musicBar .songName {
+      font-weight: 800;
+      font-size: 13px;
+      color: var(--muted);
+      flex: 1;
+    }
+    .musicBar .eqBars {
+      display: flex;
+      align-items: flex-end;
+      gap: 3px;
+      height: 20px;
+    }
+    .eqBar {
+      width: 3px;
+      border-radius: 2px;
+      background: var(--c3);
+      transform-origin: bottom;
+    }
+    .eqBar.playing { animation: eqAnim var(--spd, .6s) ease-in-out infinite alternate; }
+    @keyframes eqAnim {
+      from { transform: scaleY(.2); }
+      to   { transform: scaleY(1); }
+    }
+
     /* extra breathing room for music bar */
     @media (max-width: 860px) {
       body { padding-bottom: 70px; }
@@ -905,6 +949,19 @@
 
 
 
+  <!-- ─── MUSIC BAR ─── -->
+  <div class="musicBar" id="musicBar">
+    <div class="eqBars">
+      <div class="eqBar" style="height:14px; --spd:.5s"></div>
+      <div class="eqBar" style="height:8px;  --spd:.7s"></div>
+      <div class="eqBar" style="height:18px; --spd:.4s"></div>
+      <div class="eqBar" style="height:10px; --spd:.6s"></div>
+      <div class="eqBar" style="height:16px; --spd:.8s"></div>
+    </div>
+    <span class="songName">🎮 Crash Bandicoot Theme</span>
+    <button class="btn ghost" id="musicBarToggle" type="button" style="padding:8px 14px;font-size:13px;">⏸ Pausar</button>
+  </div>
+
   <audio id="introSound" preload="auto" loop>
     <source src="./intro.mpeg" type="audio/mpeg" />
   </audio>
@@ -1032,6 +1089,14 @@
       });
     }
 
+    const musicBar      = document.getElementById("musicBar");
+    const musicBarToggle = document.getElementById("musicBarToggle");
+    const eqBars         = document.querySelectorAll(".eqBar");
+
+    function setEqPlaying(on){
+      eqBars.forEach(b => on ? b.classList.add("playing") : b.classList.remove("playing"));
+    }
+
     async function startMusic(){
       introSound.loop = true;
       introSound.currentTime = 0;
@@ -1039,6 +1104,9 @@
       await introSound.play();
       await fadeTo(TARGET_VOL, FADE_MS);
       musicPlaying = true;
+      musicBar.classList.add("visible");
+      setEqPlaying(true);
+      musicBarToggle.textContent = "⏸ Pausar";
     }
 
     async function stopMusic(){
@@ -1048,7 +1116,25 @@
         introSound.currentTime = 0;
       } catch { introSound.pause(); introSound.currentTime = 0; }
       musicPlaying = false;
+      setEqPlaying(false);
     }
+
+    musicBarToggle.addEventListener("click", async () => {
+      if (musicPlaying){
+        await fadeTo(0, FADE_MS);
+        introSound.pause();
+        musicPlaying = false;
+        setEqPlaying(false);
+        musicBarToggle.textContent = "▶ Reanudar";
+      } else {
+        introSound.volume = 0;
+        await introSound.play();
+        await fadeTo(TARGET_VOL, FADE_MS);
+        musicPlaying = true;
+        setEqPlaying(true);
+        musicBarToggle.textContent = "⏸ Pausar";
+      }
+    });
 
     /* ══════════════════════════════════════
        CONFETTI + BUBBLES
